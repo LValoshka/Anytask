@@ -1,4 +1,5 @@
-package com.example.demo.service;
+package com.example.demo.service.interfaces;
+
 
 import com.example.demo.entity.Task;
 
@@ -6,7 +7,7 @@ import java.util.List;
 
 public interface TaskService {
 
-    Task findByName(String name);
+    Task findByTaskName(String name);
 
     Task findOne(int id);
 

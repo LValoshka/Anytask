@@ -1,13 +1,16 @@
-package com.example.demo.service;
-import org.springframework.security.core.userdetails.UserDetailsService;
+package com.example.demo.service.interfaces;
+
 import com.example.demo.entity.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService extends UserDetailsService  {
-    boolean save(User user);
+public interface UserService  {
+    void save(User user);
 
-    User findByLogin (String login);
+//    User findByLogin(String login);
+
+    User findByUsername(String username);
 
     User findOne(int id);
 

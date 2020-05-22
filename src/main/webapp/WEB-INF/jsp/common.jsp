@@ -38,7 +38,7 @@
 <body style="background-color: #d6e0f5">
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container">
-        <a class="navbar-brand" href="/start"><h5 style="color: #8c8c8c">Anytask</h5></a>
+        <a class="navbar-brand" href="/start"><h5 style="color: #8c8c8c">Yourtask</h5></a>
         <ul class="nav navbar-nav">
             <c:choose>
                 <c:when test="${pageContext.request.userPrincipal.name != null}">

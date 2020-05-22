@@ -1,7 +1,8 @@
-package com.example.demo.service;
+package com.example.demo.service.impls;
 
 import com.example.demo.entity.Task;
 import com.example.demo.repository.TaskRepository;
+import com.example.demo.service.interfaces.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
 
     @Override
-    public Task findByName(String name) {
-        return taskRepository.findByTaskName(name);
+    public Task findByTaskName(String name) {
+        return null;
     }
 
     @Override

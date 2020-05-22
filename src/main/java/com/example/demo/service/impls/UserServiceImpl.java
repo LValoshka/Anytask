@@ -1,39 +1,35 @@
-package com.example.demo.service;
+package com.example.demo.service.impls;
 
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @PersistenceContext
-    private EntityManager em;
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public boolean save(User user) {
-     //   User userFromDB = userRepository.findByLogin(user.getName());
-
-    //    if(userFromDB != null) return false;
+    public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return true;
     }
 
+
     @Override
-    public User findByLogin(String login) {
-        return userRepository.findByLogin(login);
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override
@@ -59,9 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(User entity) {
-        if (userRepository.existsById(entity.getId())) {
-            userRepository.delete(entity);
-        }
+        userRepository.delete(entity);
     }
 
     @Override
@@ -74,10 +68,4 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsById(id);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.findByLogin(s);
-        if (user == null) throw new UsernameNotFoundException("User not found");
-        return user;
-    }
 }

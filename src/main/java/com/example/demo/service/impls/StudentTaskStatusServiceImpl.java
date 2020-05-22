@@ -1,9 +1,10 @@
-package com.example.demo.service;
+package com.example.demo.service.impls;
 
 import com.example.demo.entity.Label;
 import com.example.demo.entity.StudentTaskStatus;
 import com.example.demo.entity.Task;
 import com.example.demo.repository.StudentTaskStatusRepository;
+import com.example.demo.service.interfaces.StudentTaskStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

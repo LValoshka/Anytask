@@ -39,14 +39,6 @@ public class Course {
         this.taskSet = taskSet;
     }
 
-    public User getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(User teacher) {
-        this.teacher = teacher;
-    }
-
     public int getId() {
         return id;
     }
@@ -71,6 +63,14 @@ public class Course {
         this.courseDescription = courseDescription;
     }
 
+    public User getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
+    }
+
     public Set<User> getStudentSet() {
         return studentSet;
     }
@@ -85,10 +85,5 @@ public class Course {
 
     public void setTaskSet(Set<Task> taskSet) {
         this.taskSet = taskSet;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Course: %s.", courseName);
     }
 }
