@@ -17,7 +17,8 @@
                             <div class="card border-light">
                                 <h5 class="card-header">${listItem.courseName}</h5>
                                 <div class="card-body">
-                                    <p class="card-text">Teacher: ${listItem.teacher}</p>
+                                    <p class="card-text">
+                                        Teacher: ${listItem.teacher.name} ${listItem.teacher.surname}</p>
                                     <a href="/course/${listItem.id}">
                                         <button type="button" value="${listItem.id}"
                                                 name="course" class="btn btn-primary">Show course page
@@ -34,7 +35,7 @@
                 <div class="alert alert-primary">
                     There's no courses. Would you like adding new one?
                     <br>
-                    <a href="/course/courseAdd">
+                    <a href="/course/courseCreate">
                         <button type="button" name="addCourseStart" value="AddCourseStart"
                                 class="btn btn-primary  btn-md">Add
                             course

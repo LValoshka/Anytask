@@ -9,11 +9,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
     <link href="..\css\common.css" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script>
     <script src="../js/bootstable.js"></script>
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
@@ -38,7 +37,7 @@
 <body style="background-color: #d6e0f5">
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container">
-        <a class="navbar-brand" href="/start"><h5 style="color: #8c8c8c">Yourtask</h5></a>
+        <a class="navbar-brand" href="/start"><h5 style="color: #8c8c8c">Anytask</h5></a>
         <ul class="nav navbar-nav">
             <c:choose>
                 <c:when test="${pageContext.request.userPrincipal.name != null}">
@@ -60,7 +59,8 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                     <a class="dropdown-item" style="color: #8c8c8c" href="/profile">Profile</a>
-                                    <a class="dropdown-item" style="color: #8c8c8c" href="/course/courseAdd">Create course</a>
+                                    <a class="dropdown-item" style="color: #8c8c8c" href="/course/courseCreate">Create
+                                        course</a>
                                     <a class="dropdown-item" style="color: #8c8c8c" href="/start">Join course</a>
                                     <a class="dropdown-item" onclick="document.forms['logoutForm'].submit()"
                                        style="color: #8c8c8c">Log out</a>

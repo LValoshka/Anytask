@@ -31,9 +31,9 @@ public class CourseValidator implements Validator {
             errors.rejectValue("courseName", "Duplicate.course.courseName");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "courseDescription", "NotEmpty");
         if (course.getCourseDescription().length() < 1 || course.getCourseName().length() > 255) {
-            errors.rejectValue("description", "Size.course.description");
+            errors.rejectValue("courseDescription", "Size.course.description");
         }
     }
 }
