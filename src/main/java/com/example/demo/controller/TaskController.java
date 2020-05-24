@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/{course}/task")
@@ -150,7 +152,28 @@ public class TaskController {
         return "redirect:/course/{course}";
     }
 
+    @GetMapping("{task}")
+    public String taskShow(@PathVariable Task task, Model model) {
+        model.addAttribute("task", task);
+        model.addAttribute("studentList", task.getCourse().getStudentSet());
+        return "teacherTaskShow";
+    }
 
+    @GetMapping("/{task}/setReopen")
+    public String setLabelReopenForTask(@PathVariable Task task, @PathVariable Course course) {
+        task.getStudentTaskStatus().setLabel(Label.REOPEN);
+        task.getStudentTaskStatus().setMark(0);
+        taskService.update(task);
+        return "redirect:/{course}/task/{task}";
+    }
+
+    @GetMapping("/tasksInProgress")
+    public String getInProgressTasks(@PathVariable Course course, Model model){
+        Set<StudentTaskStatus> studentTaskStatusSet = (Set<StudentTaskStatus>) course.getTaskSet().stream().map(Task::getStudentTaskStatus);
+        Set<StudentTaskStatus> inProgressTasks = studentTaskStatusSet.stream().filter( x->x.getLabel().equals(Label.IN_PROGRESS)).collect(Collectors.toSet());
+        model.addAttribute("inProgressTasks", inProgressTasks);
+        return "redirect:/course/{course}";
+    }
     private String getCurrentDate() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();

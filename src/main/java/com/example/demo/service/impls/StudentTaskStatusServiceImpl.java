@@ -8,6 +8,8 @@ import com.example.demo.service.interfaces.StudentTaskStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentTaskStatusServiceImpl implements StudentTaskStatusService {
 
@@ -22,6 +24,11 @@ public class StudentTaskStatusServiceImpl implements StudentTaskStatusService {
     @Override
     public StudentTaskStatus findStudentTaskStatusByLabelAndTask(Label label, Task task) {
         return studentTaskStatusRepository.findStudentTaskStatusByLabelAndTask(label, task);
+    }
+
+    @Override
+    public List<StudentTaskStatus> findAllByLabel(Label label) {
+        return studentTaskStatusRepository.findAllByLabel(label);
     }
 
     @Override

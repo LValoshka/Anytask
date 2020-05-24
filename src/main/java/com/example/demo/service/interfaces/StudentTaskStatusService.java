@@ -4,11 +4,15 @@ import com.example.demo.entity.Label;
 import com.example.demo.entity.StudentTaskStatus;
 import com.example.demo.entity.Task;
 
+import java.util.List;
+
 public interface StudentTaskStatusService  {
 
     StudentTaskStatus findOne(int id);
 
     StudentTaskStatus findStudentTaskStatusByLabelAndTask(Label label, Task task);
+
+    List<StudentTaskStatus> findAllByLabel(Label label);
 
     StudentTaskStatus create(StudentTaskStatus entity);
 

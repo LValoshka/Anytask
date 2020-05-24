@@ -12,15 +12,15 @@
         <c:choose>
             <c:when test="${not empty courseList}">
                 <div class="row mt-3" style="margin-bottom: 10px">
-                    <c:forEach items="${courseList}" var="listItem">
+                    <c:forEach items="${courseList}" var="studentItem">
                         <div class="col-sm-5" style="margin-bottom: 20px">
                             <div class="card border-light">
-                                <h5 class="card-header">${listItem.courseName}</h5>
+                                <h5 class="card-header">${studentItem.courseName}</h5>
                                 <div class="card-body">
                                     <p class="card-text">
-                                        Teacher: ${listItem.teacher.name} ${listItem.teacher.surname}</p>
-                                    <a href="/course/${listItem.id}">
-                                        <button type="button" value="${listItem.id}"
+                                        Teacher: ${studentItem.teacher.name} ${studentItem.teacher.surname}</p>
+                                    <a href="/course/${studentItem.id}">
+                                        <button type="button" value="${studentItem.id}"
                                                 name="course" class="btn btn-primary">Show course page
                                         </button>
                                     </a>

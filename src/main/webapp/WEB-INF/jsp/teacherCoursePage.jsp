@@ -74,24 +74,24 @@
                                 <tbody>
                                 <c:choose>
                                     <c:when test="${not empty taskList}">
-                                        <c:forEach items="${taskList}" var="listItem">
-                                            <tr data-toggle="collapse" data-target="#id${listItem.id}"
+                                        <c:forEach items="${taskList}" var="studentItem">
+                                            <tr data-toggle="collapse" data-target="#id${studentItem.id}"
                                                 class="accordion-toggle">
                                                 <td>
-                                                    <a href="/${listItem.course.id}/task/${listItem.id}">
-                                                            ${listItem.taskName}
+                                                    <a href="/${studentItem.course.id}/task/${studentItem.id}">
+                                                            ${studentItem.taskName}
                                                     </a>
                                                 </td>
-                                                <td>${listItem.dueDate}</td>
+                                                <td>${studentItem.dueDate}</td>
                                                 <td>
                                                     <form:form method="get">
-                                                    <a href="/${course.id}/task/${listItem.id}/delete">
-                                                        <button type="button" value="${listItem.id}"
+                                                    <a href="/${course.id}/task/${studentItem.id}/delete">
+                                                        <button type="button" value="${studentItem.id}"
                                                                 name="course" class="badge badge-primary">Delete
                                                             task
                                                         </button>
                                                     </a>
-                                                    <a href="/${course.id}/task/${listItem.id}/edit">
+                                                    <a href="/${course.id}/task/${studentItem.id}/edit">
                                                         <button type="button" class="badge badge-primary">Edit
                                                         </button>
                                                         </form:form>
@@ -99,9 +99,9 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="5" class="hiddenRow">
-                                                    <div id="id${listItem.id}" class="accordion-body collapse">
+                                                    <div id="id${studentItem.id}" class="accordion-body collapse">
                                                         <div class="card card-body">
-                                                            <p>${listItem.taskDescription}</p>
+                                                            <p>${studentItem.taskDescription}</p>
                                                         </div>
                                                     </div>
                                                 </td>

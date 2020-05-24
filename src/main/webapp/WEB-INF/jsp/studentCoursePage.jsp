@@ -57,22 +57,22 @@
                             <tbody>
                             <c:choose>
                                 <c:when test="${not empty taskStatusList}">
-                                    <c:forEach items="${taskStatusList}" var="listItem">
-                                        <tr data-toggle="collapse" data-target="#id${listItem.id}"
+                                    <c:forEach items="${taskStatusList}" var="studentItem">
+                                        <tr data-toggle="collapse" data-target="#id${studentItem.id}"
                                             class="accordion-toggle">
-                                            <td>${listItem.task.taskName}</td>
-                                            <td>${listItem.mark}</td>
-                                            <td><span class="badge badge-success">${listItem.label}</span></td>
-                                            <td>${listItem.task.dueDate}</td>
+                                            <td>${studentItem.task.taskName}</td>
+                                            <td>${studentItem.mark}</td>
+                                            <td><span class="badge badge-success">${studentItem.label}</span></td>
+                                            <td>${studentItem.task.dueDate}</td>
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${not empty listItem.startDate}">
-                                                        ${listItem.startDate}
+                                                    <c:when test="${not empty studentItem.startDate}">
+                                                        ${studentItem.startDate}
                                                     </c:when>
                                                     <c:otherwise>
                                                         <form:form method="get">
-                                                            <a href="/${listItem.task.course.id}/task/${listItem.task.id}/setStartDate">
-                                                                <button type="button" value="${listItem.id}"
+                                                            <a href="/${studentItem.task.course.id}/task/${studentItem.task.id}/setStartDate">
+                                                                <button type="button" value="${studentItem.id}"
                                                                         name="course" class="badge badge-primary">
                                                                     Set start date
                                                                 </button>
@@ -83,13 +83,13 @@
                                             </td>
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${not empty listItem.endDate}">
-                                                        ${listItem.endDate}
+                                                    <c:when test="${not empty studentItem.endDate}">
+                                                        ${studentItem.endDate}
                                                     </c:when>
                                                     <c:otherwise>
                                                         <form:form method="get">
-                                                            <a href="/${listItem.task.course.id}/task/${listItem.task.id}/setEndDate">
-                                                                <button type="button" value="${listItem.id}"
+                                                            <a href="/${studentItem.task.course.id}/task/${studentItem.task.id}/setEndDate">
+                                                                <button type="button" value="${studentItem.id}"
                                                                         name="course" class="badge badge-primary">
                                                                     Set end date
                                                                 </button>
@@ -99,7 +99,7 @@
                                                 </c:choose>
                                             </td>
                                             <td>
-                                                    <c:url value="/${listItem.task.course.id}/task/${listItem.task.id}/upload?${_csrf.parameterName}=${_csrf.token}"
+                                                    <c:url value="/${studentItem.task.course.id}/task/${studentItem.task.id}/upload?${_csrf.parameterName}=${_csrf.token}"
                                                            var="var"/>
                                                 <form method="post"
                                                       action="${var}"
@@ -115,13 +115,13 @@
                                         </tr>
                                         <tr>
                                             <td colspan="5" class="hiddenRow">
-                                                <div id="id${listItem.id}" class="accordion-body collapse">
+                                                <div id="id${studentItem.id}" class="accordion-body collapse">
                                                     <div class="card card-body">
-                                                        <p>${listItem.task.taskDescription}</p>
+                                                        <p>${studentItem.task.taskDescription}</p>
                                                         <c:choose>
-                                                            <c:when test="${not empty listItem.url}">
+                                                            <c:when test="${not empty studentItem.url}">
                                                                 Your solution, ${user.name} ${user.surname}:
-                                                                <img src="${listItem.url}" alt="not found" height="400"
+                                                                <img src="${studentItem.url}" alt="not found" height="400"
                                                                      width="500">
                                                             </c:when>
                                                             <c:otherwise>
