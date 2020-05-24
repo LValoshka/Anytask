@@ -11,10 +11,10 @@
 <div class="container mt-3">
     <form:form method="POST" modelAttribute="task" class="form-signin">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input type="hidden" name="course" value="${course.id}">
+        <input type="hidden" name="course" value="${course}">
         <form:hidden path="course" value="${course.id}"></form:hidden>
 
-        <h2 class="form-signin-heading">Edit task:</h2>
+        <h2 class="form-signin-heading">Edit ${task.taskName}:</h2>
 
         <spring:bind path="dueDate">
             <div class="form-group ${status.error ? 'has-error' : ''}">

@@ -65,6 +65,40 @@
                                             <td><span class="badge badge-success">${listItem.label}</span></td>
                                             <td>${listItem.task.dueDate}</td>
                                             <td>
+                                                <c:choose>
+                                                    <c:when test="${not empty listItem.startDate}">
+                                                        ${listItem.startDate}
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <form:form method="get">
+                                                            <a href="/${listItem.task.course.id}/task/${listItem.task.id}/setStartDate">
+                                                                <button type="button" value="${listItem.id}"
+                                                                        name="course" class="badge badge-primary">
+                                                                    Set start date
+                                                                </button>
+                                                            </a>
+                                                        </form:form>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${not empty listItem.endDate}">
+                                                        ${listItem.endDate}
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <form:form method="get">
+                                                            <a href="/${listItem.task.course.id}/task/${listItem.task.id}/setEndDate">
+                                                                <button type="button" value="${listItem.id}"
+                                                                        name="course" class="badge badge-primary">
+                                                                    Set end date
+                                                                </button>
+                                                            </a>
+                                                        </form:form>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td>
                                                     <c:url value="/${listItem.task.course.id}/task/${listItem.task.id}/upload?${_csrf.parameterName}=${_csrf.token}"
                                                            var="var"/>
                                                 <form method="post"

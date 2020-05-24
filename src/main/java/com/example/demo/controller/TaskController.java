@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @Controller
@@ -88,5 +90,28 @@ public class TaskController {
         return "redirect:/course/{course}";
     }
 
+    @GetMapping("{task}/setStartDate")
+    public String setStartDate(@PathVariable Task task) {
+        String currentDate = getCurrentDate();
+        task.getStudentTaskStatus().setStartDate(currentDate);
+        task.getStudentTaskStatus().setLabel(Label.IN_PROGRESS);
+        taskService.update(task);
+        return "redirect:/course/{course}";
+    }
 
+    //or edit with uploading
+    @GetMapping("{task}/setEndDate")
+    public String setEndDate(@PathVariable Task task) {
+        String currentDate = getCurrentDate();
+        task.getStudentTaskStatus().setEndDate(currentDate);
+        task.getStudentTaskStatus().setLabel(Label.READY_FOR_REVIEW);
+        taskService.update(task);
+        return "redirect:/course/{course}";
+    }
+
+    private String getCurrentDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        return now.format(dtf);
+    }
 }
