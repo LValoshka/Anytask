@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 public enum Label {
-    NEW("new"), REOPEN("reopen"), DONE("done"), READY_FOR_REVIEW("ready for review");
+    NEW("new"), REOPEN("reopen"), IN_PROGRESS("in progress"), DONE("done"), READY_FOR_REVIEW("ready for review");
     private String label;
 
     Label(String str) {

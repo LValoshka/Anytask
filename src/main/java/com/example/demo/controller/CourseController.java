@@ -63,30 +63,30 @@ public class CourseController {
     public String courseShow(@PathVariable Course course, Model model) {
         User user = getCurrentUser();
 
+        Set<StudentTaskStatus> taskStatuses = new HashSet<>();
+        for (Task task : course.getTaskSet()) {
+            for (StudentTaskStatus studentTaskStatus : user.getStudentTaskStatusSet()) {
+                if (task.equals(studentTaskStatus.getTask())) {
+                    taskStatuses.add(studentTaskStatus);
+                }
+            }
+        }
+
+        Set<StudentTaskStatus> studentTaskStatusSet = new HashSet<>();
+        for (Task task : course.getTaskSet()) {
+            studentTaskStatusSet.add(studentTaskStatusService.findStudentTaskStatusByLabelAndTask(Label.READY_FOR_REVIEW, task));
+        }
+
         Set<Label> labels = new HashSet<>();
         labels.add(Label.NEW);
         labels.add(Label.REOPEN);
         labels.add(Label.DONE);
 
-        Set<StudentTaskStatus> taskStatuses = new HashSet<>();
-        for (Task i : course.getTaskSet()) {
-            for (StudentTaskStatus j : user.getStudentTaskStatusSet()) {
-                if (i.equals(j.getTask())) {
-                    taskStatuses.add(j);
-                }
-            }
-        }
-
-        Set<StudentTaskStatus> studentTaskStatuses = new HashSet<>();
-        for (Task i : course.getTaskSet()) {
-            studentTaskStatuses.add(studentTaskStatusService.findStudentTaskStatusByLabelAndTask(Label.READY_FOR_REVIEW, i));
-        }
-
         if (course.getTeacher().equals(user)) {
             model.addAttribute("course", course);
             model.addAttribute("taskList", course.getTaskSet());
             model.addAttribute("studentList", course.getStudentSet());
-            model.addAttribute("taskStatusSet", studentTaskStatuses);
+            model.addAttribute("taskStatusSet", studentTaskStatusSet);
             model.addAttribute("labelList", labels);
             return "teacherCoursePage";
         } else if (course.getStudentSet().contains(user)) {
@@ -110,10 +110,9 @@ public class CourseController {
 
         Set<StudentTaskStatus> userTasks = user.getStudentTaskStatusSet();
 
-        for (Task i : course.getTaskSet()) {
-
+        for (Task task : course.getTaskSet()) {
             StudentTaskStatus studentTaskStatus = new StudentTaskStatus();
-            studentTaskStatus.setTask(i);
+            studentTaskStatus.setTask(task);
             studentTaskStatus.setLabel(Label.NEW);
             studentTaskStatus.setMark(0);
 
@@ -126,7 +125,6 @@ public class CourseController {
         }
 
         userService.update(user);
-
         return "redirect:/course/{course}";
     }
 }

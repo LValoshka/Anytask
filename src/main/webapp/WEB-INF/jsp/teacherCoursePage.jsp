@@ -39,8 +39,6 @@
                        href="#tasks" role="tab" aria-controls="tasks">Tasks</a>
                     <a class="list-group-item list-group-item-action" id="list-desc-list" data-toggle="list"
                        href="#desc" role="tab" aria-controls="desc">Description</a>
-                    <%--                    <a class="list-group-item list-group-item-action" id="list-ready-list" data-toggle="list"--%>
-                    <%--                       href="#ready" role="tab" aria-controls="ready">Ready for review</a>--%>
                 </div>
             </div>
         </div>

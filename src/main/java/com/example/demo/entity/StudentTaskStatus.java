@@ -27,6 +27,12 @@ public class StudentTaskStatus {
     @Enumerated(EnumType.STRING)
     private Label label;
 
+    @Column(name = "start_date")
+    private String startDate;
+
+    @Column(name = "end_date")
+    private String endDate;
+
     @Column(name = "mark")
     private int mark;
 
@@ -36,10 +42,12 @@ public class StudentTaskStatus {
     public StudentTaskStatus() {
     }
 
-    public StudentTaskStatus(User student, Task task, Label label, int mark, String url) {
+    public StudentTaskStatus(User student, Task task, Label label, String startDate, String endDate, int mark, String url) {
         this.student = student;
         this.task = task;
         this.label = label;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.mark = mark;
         this.url = url;
     }
@@ -74,6 +82,22 @@ public class StudentTaskStatus {
 
     public void setLabel(Label label) {
         this.label = label;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public int getMark() {
