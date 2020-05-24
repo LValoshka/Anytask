@@ -9,6 +9,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.Date;
+
 @Component
 public class TaskValidator implements Validator {
 
@@ -27,9 +29,11 @@ public class TaskValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "taskName", "NotEmpty");
         if (task.getTaskName().length() < 3 || task.getTaskName().length() > 100) {
             errors.rejectValue("taskName", "Size.task.name");
+            if (taskService.findByTaskName(task.getTaskName()) != null) {
+                errors.rejectValue("taskName", "Duplicate.task.name");
+            }
         }
-        if (taskService.findByTaskName(task.getTaskName()) != null) {
-            errors.rejectValue("taskName", "Duplicate.task.name");
-        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "taskDescription", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dueDate", "NotEmpty");
     }
 }

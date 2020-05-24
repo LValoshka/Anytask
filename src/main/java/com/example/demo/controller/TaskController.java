@@ -68,5 +68,25 @@ public class TaskController {
         return "redirect:/course/{course}";
     }
 
+    @GetMapping("{task}/edit")
+    public String taskEdit(@PathVariable Task task, Model model) {
+        model.addAttribute("task", task);
+        return "taskEdit";
+    }
+
+    @PostMapping("{task}/edit")
+    public String taskEdit(@PathVariable Course course, @PathVariable Task task, @ModelAttribute("task") Task modelTask, BindingResult bindingResult) {
+        taskValidator.validate(task, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "taskEdit";
+        }
+
+        task.setTaskName(task.getTaskName());
+        task.setCourse(course);
+        taskService.update(task);
+
+        return "redirect:/course/{course}";
+    }
+
 
 }
