@@ -62,4 +62,11 @@ public class TaskController {
         return "redirect:/course/{course}";
     }
 
+    @GetMapping("/{task}/delete")
+    public String deleteTask(@PathVariable Task task, @PathVariable Course course) {
+        taskService.delete(task);
+        return "redirect:/course/{course}";
+    }
+
+
 }
