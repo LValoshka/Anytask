@@ -1,13 +1,18 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.*;
+import com.example.demo.service.interfaces.CloudinaryService;
 import com.example.demo.service.interfaces.TaskService;
+import com.example.demo.service.interfaces.UserService;
 import com.example.demo.validator.TaskValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +26,10 @@ public class TaskController {
     private TaskService taskService;
     @Autowired
     private TaskValidator taskValidator;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @GetMapping("/taskAdd")
     public String taskAdd(@PathVariable Course course, Model model) {
@@ -108,6 +117,39 @@ public class TaskController {
         taskService.update(task);
         return "redirect:/course/{course}";
     }
+
+    @GetMapping("/{task}/upload")
+    public String uploadForm(@PathVariable Task task) {
+        return "studentCoursePage";
+    }
+
+    @PostMapping("/{task}/upload")
+    public String uploadFile(@PathVariable Task task, @RequestParam("file") MultipartFile file, Model model) {
+        if (file.isEmpty()) {
+            model.addAttribute("message", "Please select a file to upload");
+            return "studentCoursePage";
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User user = userService.findByUsername(username);
+        String url = cloudinaryService.uploadFile(file);
+
+        StudentTaskStatus studentTaskStatus = new StudentTaskStatus();
+        studentTaskStatus.setTask(task);
+
+        for (StudentTaskStatus i : user.getStudentTaskStatusSet()) {
+            if (i.getTask().getId() == studentTaskStatus.getTask().getId()) {
+                i.setUrl(url);
+                i.setLabel(Label.READY_FOR_REVIEW);
+                i.setEndDate(getCurrentDate());
+            }
+        }
+
+        taskService.save(task);
+        return "redirect:/course/{course}";
+    }
+
 
     private String getCurrentDate() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");

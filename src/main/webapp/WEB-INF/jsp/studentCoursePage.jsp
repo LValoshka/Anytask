@@ -120,7 +120,7 @@
                                                         <p>${listItem.task.taskDescription}</p>
                                                         <c:choose>
                                                             <c:when test="${not empty listItem.url}">
-                                                                Your solution, ${user}:
+                                                                Your solution, ${user.name} ${user.surname}:
                                                                 <img src="${listItem.url}" alt="not found" height="400"
                                                                      width="500">
                                                             </c:when>
