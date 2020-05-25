@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.*;
 import com.example.demo.service.interfaces.CloudinaryService;
+import com.example.demo.service.interfaces.StudentTaskStatusService;
 import com.example.demo.service.interfaces.TaskService;
 import com.example.demo.service.interfaces.UserService;
+import com.example.demo.validator.StudentTaskStatusValidator;
 import com.example.demo.validator.TaskValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,6 +32,10 @@ public class TaskController {
     private UserService userService;
     @Autowired
     private CloudinaryService cloudinaryService;
+    @Autowired
+    private StudentTaskStatusService studentTaskStatusService;
+    @Autowired
+    private StudentTaskStatusValidator studentTaskStatusValidator;
 
     @GetMapping("/taskAdd")
     public String taskAdd(@PathVariable Course course, Model model) {
@@ -157,11 +163,40 @@ public class TaskController {
         return "teacherTaskShow";
     }
 
-    @GetMapping("/{task}/setReopen")
-    public String setLabelReopenForTask(@PathVariable Task task, @PathVariable Course course) {
-        task.getStudentTaskStatus().setLabel(Label.REOPEN);
-        task.getStudentTaskStatus().setMark(0);
-        taskService.update(task);
+//    @GetMapping("/{task}/setReopen")
+//    public String setLabelReopenForTask(@PathVariable Task task, @PathVariable Course course) {
+//        task.getStudentTaskStatus().setLabel(Label.REOPEN);
+//        task.getStudentTaskStatus().setMark(0);
+//        taskService.update(task);
+//        return "redirect:/{course}/task/{task}";
+//    }
+
+    @RequestMapping(params = {"_csrf", "mark", "user"}, value = "/{task}/check", method = RequestMethod.POST)
+    public String taskCheck(@PathVariable Task task,
+                            @RequestParam("user") String username,
+                            @RequestParam("_csrf") String _csrf,
+                            @RequestParam("mark") String mark,
+                            @ModelAttribute("taskStatus") StudentTaskStatus studentTaskStatus,
+                            BindingResult bindingResult) {
+
+//        studentTaskStatusValidator.validate(studentTaskStatus, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            return "redirect:/{course}/task/{task}";
+//        }
+
+        int studentMark = Integer.parseInt(mark);
+        User user = userService.findByUsername(username);
+
+        for (StudentTaskStatus i : user.getStudentTaskStatusSet()) {
+            if (i.getTask().getId() == studentTaskStatus.getTask().getId()) {
+                i.setStudent(i.getStudent());
+                i.setTask(i.getTask());
+                i.setUrl(i.getUrl());
+                i.setLabel(Label.DONE);
+                i.setMark(studentMark);
+                studentTaskStatusService.update(i);
+            }
+        }
         return "redirect:/{course}/task/{task}";
     }
 

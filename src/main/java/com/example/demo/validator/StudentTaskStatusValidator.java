@@ -30,11 +30,11 @@ public class StudentTaskStatusValidator implements Validator {
             errors.rejectValue("mark", "Invalid.task.mark");
         }
 
-        Pattern pattern = Pattern.compile("[0-10]\\d*");
-        Matcher matchDates = pattern.matcher(Integer.toString(task.getMark()));
-        if (!matchDates.matches()) {
-            errors.rejectValue("mark", "Invalid.task.naturalMark");
-        }
+//        Pattern pattern = Pattern.compile("[0-10]\\d*");
+//        Matcher matchDates = pattern.matcher(Integer.toString(task.getMark()));
+//        if (!matchDates.matches()) {
+//            errors.rejectValue("mark", "Invalid.task.naturalMark");
+//        }
     }
 }
 

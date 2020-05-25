@@ -53,11 +53,24 @@
                         <p class="card-header">
                             <b>Tasks</b>
                         </p>
-                        <table class="table display table-condensed" id="myTable" style="border-collapse:collapse;">
-                            <tbody>
-                            <c:choose>
-                                <c:when test="${not empty taskStatusList}">
+
+                        <c:choose>
+                            <c:when test="${not empty taskStatusList}">
+                                <table class="table display table-condensed" id="myTable"
+                                       style="border-collapse:collapse;">
+                                    <thead>
+                                    <tr>
+                                        <th>Task name</th>
+                                        <th>Mark</th>
+                                        <th>Status</th>
+                                        <th>Due date</th>
+                                        <th>Start date</th>
+                                        <th>End date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
                                     <c:forEach items="${taskStatusList}" var="studentItem">
+                                        <tbody>
                                         <tr data-toggle="collapse" data-target="#id${studentItem.id}"
                                             class="accordion-toggle">
                                             <td>${studentItem.task.taskName}</td>
@@ -121,7 +134,8 @@
                                                         <c:choose>
                                                             <c:when test="${not empty studentItem.url}">
                                                                 Your solution, ${user.name} ${user.surname}:
-                                                                <img src="${studentItem.url}" alt="not found" height="400"
+                                                                <img src="${studentItem.url}" alt="not found"
+                                                                     height="400"
                                                                      width="500">
                                                             </c:when>
                                                             <c:otherwise>
@@ -132,18 +146,17 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        </tbody>
                                     </c:forEach>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="alert alert-primary">
-                                        There're no tasks=)
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            </tbody>
-                        </table>
+                                </table>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="alert alert-primary">
+                                    There're no tasks=)
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-
                 </div>
             </div>
         </div>
