@@ -13,8 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/course")
@@ -72,9 +76,17 @@ public class CourseController {
             }
         }
 
-        Set<StudentTaskStatus> studentTaskStatusSet = new HashSet<>();
-        for (Task task : course.getTaskSet()) {
-            studentTaskStatusSet.add(studentTaskStatusService.findStudentTaskStatusByLabelAndTask(Label.READY_FOR_REVIEW, task));
+        List<StudentTaskStatus> inProgressTasks = new ArrayList<>();
+        for (User userLoop : course.getStudentSet()) {
+            for (Task task : course.getTaskSet()) {
+                inProgressTasks.addAll(studentTaskStatusService.findAllByLabelAndTaskAndStudent(Label.IN_PROGRESS, task, userLoop));
+            }
+        }
+        List<StudentTaskStatus> readyForReviewTasks = new ArrayList<>();
+        for (User userLoop : course.getStudentSet()) {
+            for (Task task : course.getTaskSet()) {
+                readyForReviewTasks.addAll(studentTaskStatusService.findAllByLabelAndTaskAndStudent(Label.READY_FOR_REVIEW, task, userLoop));
+            }
         }
 
         Set<Label> labels = new HashSet<>();
@@ -86,7 +98,8 @@ public class CourseController {
             model.addAttribute("course", course);
             model.addAttribute("taskList", course.getTaskSet());
             model.addAttribute("studentList", course.getStudentSet());
-            model.addAttribute("taskStatusSet", studentTaskStatusSet);
+            model.addAttribute("inProgressTasks", inProgressTasks);
+            model.addAttribute("readyForReviewTasks", readyForReviewTasks);
             model.addAttribute("labelList", labels);
             return "teacherCoursePage";
         } else if (course.getStudentSet().contains(user)) {

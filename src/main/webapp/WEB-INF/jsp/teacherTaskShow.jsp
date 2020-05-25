@@ -64,32 +64,33 @@
                             <b>${task.taskName}</b>
                         </p>
                         <div class="card-body">
-                            <table class="table display table-condensed" id="myTable" style="border-collapse:collapse;">
-                                <thead>
-                                <tr>
-                                    <th>Student name</th>
-                                    <th>Mark</th>
-                                    <th>Status</th>
-                                    <th>Start date</th>
-                                    <th>End date</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:choose>
-                                    <c:when test="${not empty studentList}">
-                                        <c:forEach items="${studentList}" var="studentItem">
-                                            <c:forEach items="${studentItem.studentTaskStatusSet}"
-                                                       var="studentTaskStatus">
-                                                <form:form method="post"
-                                                           action="/${task.course.id}/task/${task.id}/check"
-                                                           modelAttribute="studentTaskStatus">
-                                                    <input type="hidden" name="${_csrf.parameterName}"
-                                                           value="${_csrf.token}"/>
-                                                    <c:if test="${task.id==studentTaskStatus.task.id}">
+                            <c:choose>
+                                <c:when test="${not empty studentList}">
+                                    <c:forEach items="${studentList}" var="studentItem">
+                                        <c:forEach items="${studentItem.studentTaskStatusSet}"
+                                                   var="studentTaskStatus">
+                                            <form:form method="post"
+                                                       action="/${task.course.id}/task/${task.id}/check"
+                                                       modelAttribute="studentTaskStatus">
+                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                       value="${_csrf.token}"/>
+                                                <c:if test="${task.id==studentTaskStatus.task.id}">
+                                                    <table class="table display table-condensed" id="myTable"
+                                                           style="border-collapse:collapse;">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Student name</th>
+                                                            <th>Mark</th>
+                                                            <th>Status</th>
+                                                            <th>Start date</th>
+                                                            <th>End date</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
                                                         <tr data-toggle="collapse" data-target="#id${studentItem.id}"
                                                             class="accordion-toggle">
-                                                            <td>${studentItem.username}</td>
+                                                            <td>${studentItem.name} ${studentItem.surname}</td>
                                                             <td>
                                                                 <label>
                                                                     <input type="number"
@@ -143,26 +144,23 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    </c:if>
-                                                </form:form>
-                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </c:if>
+                                            </form:form>
                                         </c:forEach>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="alert alert-primary">
-                                            There're no students=(
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
-                                </tbody>
-                            </table>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="alert alert-primary">
+                                        There're no students=(
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>

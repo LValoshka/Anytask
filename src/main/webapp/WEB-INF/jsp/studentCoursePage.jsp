@@ -48,11 +48,11 @@
                             <p>${course.courseDescription}</p>
                         </div>
                     </div>
+
                     <div class="tab-pane fade show active" id="tasks" role="tabpanel" aria-labelledby="list-tasks-list">
                         <p class="card-header">
                             <b>Tasks</b>
                         </p>
-
                         <table class="table display table-condensed" id="myTable" style="border-collapse:collapse;">
                             <tbody>
                             <c:choose>

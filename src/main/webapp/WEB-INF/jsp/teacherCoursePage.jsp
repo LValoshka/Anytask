@@ -39,8 +39,10 @@
                        href="#tasks" role="tab" aria-controls="tasks">Tasks</a>
                     <a class="list-group-item list-group-item-action" id="list-desc-list" data-toggle="list"
                        href="#desc" role="tab" aria-controls="desc">Description</a>
-                    <%--                    <a class="list-group-item list-group-item-action" id="list-ready-list" data-toggle="list"--%>
-                    <%--                       href="#ready" role="tab" aria-controls="ready">Ready for review</a>--%>
+                    <a class="list-group-item list-group-item-action" id="list-inProgress-list" data-toggle="list"
+                       href="#inProgress" role="tab" aria-controls="desc">Tasks in progress</a>
+                    <a class="list-group-item list-group-item-action" id="list-ready-list" data-toggle="list"
+                       href="#readyForReview" role="tab" aria-controls="ready">Tasks ready for checking</a>
                 </div>
             </div>
         </div>
@@ -48,33 +50,25 @@
         <div class="col-lg-9 col-md-12">
             <div class="card">
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade" id="desc" role="tabpanel"
-                         aria-labelledby="list-desc-list">
-                        <p class="card-header"><b>Description</b></p>
-                        <div class="card-body">
-                            <p>${course.courseDescription}</p>
-                        </div>
-                    </div>
-
                     <div class="tab-pane fade show active" id="tasks" role="tabpanel" aria-labelledby="list-tasks-list">
                         <p class="card-header">
                             <b>Tasks </b><a href="/${course.id}/task/taskAdd"
                                             class="text-decoration-none md-2"> Create task</a>
                         </p>
                         <div class="card-body">
-                            <table class="table display table-condensed" id="myTable"
-                                   style="border-collapse:collapse;">
-                                <thead>
-                                <tr>
-                                    <th>Course name</th>
-                                    <th>Due date</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:choose>
-                                    <c:when test="${not empty taskList}">
-                                        <c:forEach items="${taskList}" var="studentItem">
+                            <c:choose>
+                                <c:when test="${not empty taskList}">
+                                    <c:forEach items="${taskList}" var="studentItem">
+                                        <table class="table display table-condensed" id="myTable"
+                                               style="border-collapse:collapse;">
+                                            <thead>
+                                            <tr>
+                                                <th>Course name</th>
+                                                <th>Due date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                             <tr data-toggle="collapse" data-target="#id${studentItem.id}"
                                                 class="accordion-toggle">
                                                 <td>
@@ -106,17 +100,97 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </c:forEach>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="alert alert-primary">
-                                            There're no tasks=(
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
+                                            </tbody>
+                                        </table>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="alert alert-primary">
+                                        There're no tasks=(
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
 
-                                </tbody>
-                            </table>
+                    <div class="tab-pane fade" id="desc" role="tabpanel"
+                         aria-labelledby="list-desc-list">
+                        <p class="card-header"><b>Description</b></p>
+                        <div class="card-body">
+                            <p>${course.courseDescription}</p>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="inProgress" role="tabpanel"
+                         aria-labelledby="list-inProgress-list">
+                        <p class="card-header"><b>Tasks in progress</b></p>
+                        <div class="card-body">
+
+                            <c:choose>
+                                <c:when test="${not empty inProgressTasks}">
+                                    <c:forEach items="${inProgressTasks}" var="inProgressTaskItem">
+                                        <table class="table display table-condensed"
+                                               style="border-collapse:collapse;">
+                                            <thead>
+                                            <tr>
+                                                <th>Student name</th>
+                                                <th>Task name</th>
+                                                <th>Start date</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>${inProgressTaskItem.student.name} ${inProgressTaskItem.student.surname}</td>
+                                                <td>${inProgressTaskItem.task.taskName}</td>
+                                                <td>${inProgressTaskItem.startDate}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="alert alert-primary">
+                                        There're no tasks or students dont't work=(
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="readyForReview" role="tabpanel"
+                         aria-labelledby="list-inProgress-list">
+                        <p class="card-header"><b>Ready for checking tasks</b></p>
+                        <div class="card-body">
+
+                            <c:choose>
+                                <c:when test="${not empty readyForReviewTasks}">
+                                    <c:forEach items="${readyForReviewTasks}" var="readyForReviewTaskItem">
+                                        <table class="table display table-condensed"
+                                               style="border-collapse:collapse;">
+                                            <thead>
+                                            <tr>
+                                                <th>Student name</th>
+                                                <th>Task name</th>
+                                                <th>Start date</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>${readyForReviewTaskItem.student.name} ${readyForReviewTaskItem.student.surname}</td>
+                                                <td>${readyForReviewTaskItem.task.taskName}</td>
+                                                <td>${readyForReviewTaskItem.startDate}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="alert alert-primary">
+                                        There're no tasks or students dont't work=(
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ package com.example.demo.service.impls;
 import com.example.demo.entity.Label;
 import com.example.demo.entity.StudentTaskStatus;
 import com.example.demo.entity.Task;
+import com.example.demo.entity.User;
 import com.example.demo.repository.StudentTaskStatusRepository;
 import com.example.demo.service.interfaces.StudentTaskStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,10 @@ public class StudentTaskStatusServiceImpl implements StudentTaskStatusService {
     }
 
     @Override
-    public List<StudentTaskStatus> findAllByLabel(Label label) {
-        return studentTaskStatusRepository.findAllByLabel(label);
+    public List<StudentTaskStatus> findAllByLabelAndTaskAndStudent(Label label, Task task, User user) {
+        return studentTaskStatusRepository.findAllByLabelAndTaskAndStudent(label, task, user);
     }
+
 
     @Override
     public StudentTaskStatus create(StudentTaskStatus entity) {

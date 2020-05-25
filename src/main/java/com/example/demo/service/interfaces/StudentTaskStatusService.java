@@ -3,6 +3,7 @@ package com.example.demo.service.interfaces;
 import com.example.demo.entity.Label;
 import com.example.demo.entity.StudentTaskStatus;
 import com.example.demo.entity.Task;
+import com.example.demo.entity.User;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface StudentTaskStatusService  {
 
     StudentTaskStatus findStudentTaskStatusByLabelAndTask(Label label, Task task);
 
-    List<StudentTaskStatus> findAllByLabel(Label label);
+    List<StudentTaskStatus> findAllByLabelAndTaskAndStudent(Label label, Task task, User user);
 
     StudentTaskStatus create(StudentTaskStatus entity);
 
