@@ -15,20 +15,20 @@
 
         <h2 class="form-heading">Create your course:</h2>
         <br>
-        <spring:bind path="courseName">
+        <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="courseName" class="control-label col-xs-4">Course name:</label>
-                <form:input type="text" path="courseName" class="form-control" placeholder="courseName"
-                            autofocus="true" id="courseName"></form:input>
-                <form:errors path="courseName"></form:errors>
+                <label for="name" class="control-label col-xs-4">Course name:</label>
+                <form:input type="text" path="name" class="form-control" placeholder="name"
+                            autofocus="true" id="name"></form:input>
+                <form:errors path="name"></form:errors>
             </div>
         </spring:bind>
-        <spring:bind path="courseDescription">
+        <spring:bind path="description">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="courseDescription" class="control-label col-xs-4">Course description:</label>
-                <form:textarea cols="25" rows="4" path="courseDescription" class="form-control"
+                <label for="description" class="control-label col-xs-4">Course description:</label>
+                <form:textarea cols="25" rows="4" path="description" class="form-control"
                                placeholder="Describe your course"></form:textarea>
-                <form:errors path="courseDescription"></form:errors>
+                <form:errors path="description"></form:errors>
             </div>
         </spring:bind>
 
