@@ -11,14 +11,14 @@
     <div class="col-lg-6 col-md-9">
         <div class="card">
             <div class="card-header">
-                <span><b>Course</b> ${course.courseName}</span>
+                <span><b>Course</b> ${course.name}</span>
             </div>
             <div class="card-body">
                 <b>Teacher: </b> ${course.teacher.name} ${course.teacher.surname}
                 <br>
                 <b>Description:</b>
                 <br>
-                <span>${course.courseDescription}</span>
+                <span>${course.description}</span>
                 <div style="padding-top: 10px">
                     <form:form method="get">
                         <a href="/course/${course.id}/join">

@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>${course.courseName}</title>
+    <title>${course.name}</title>
     <jsp:include page="common.jsp"></jsp:include>
     <style>
         .table tr {
@@ -23,7 +23,7 @@
     <div class="row mt-3">
         <div class="col-lg-3 col-md-12">
             <div class="card">
-                <h5 class="card-header">${course.courseName}</h5>
+                <h5 class="card-header">${course.name}</h5>
                 <div class="card-body">
                     <p class="card-text"><b>Teacher</b>: ${course.teacher.name} ${course.teacher.surname} </p>
                 </div>
@@ -45,7 +45,7 @@
                          aria-labelledby="list-desc-list">
                         <p class="card-header"><b>Description</b></p>
                         <div class="card-body">
-                            <p>${course.courseDescription}</p>
+                            <p>${course.description}</p>
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                                         <tbody>
                                         <tr data-toggle="collapse" data-target="#id${studentItem.id}"
                                             class="accordion-toggle">
-                                            <td>${studentItem.task.taskName}</td>
+                                            <td>${studentItem.task.name}</td>
                                             <td>${studentItem.mark}</td>
                                             <td><span class="badge badge-success">${studentItem.label}</span></td>
                                             <td>${studentItem.task.dueDate}</td>
@@ -130,7 +130,7 @@
                                             <td colspan="5" class="hiddenRow">
                                                 <div id="id${studentItem.id}" class="accordion-body collapse">
                                                     <div class="card card-body">
-                                                        <p>${studentItem.task.taskDescription}</p>
+                                                        <p>${studentItem.task.description}</p>
                                                         <c:choose>
                                                             <c:when test="${not empty studentItem.url}">
                                                                 Your solution, ${user.name} ${user.surname}:

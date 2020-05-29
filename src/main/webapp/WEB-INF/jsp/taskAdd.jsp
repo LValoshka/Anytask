@@ -15,12 +15,12 @@
         <form:hidden path="course" value="${course.id}"></form:hidden>
 
         <h2 class="form-signin-heading">Create task:</h2>
-        <spring:bind path="taskName">
+        <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="taskName" class="control-label col-xs-4">Task name:</label>
-                <form:input type="text" path="taskName" class="form-control" placeholder="Task name"
+                <label for="description" class="control-label col-xs-4">Task name:</label>
+                <form:input type="text" path="name" class="form-control" placeholder="Task name"
                             autofocus="true" id="name"></form:input>
-                <form:errors path="taskName"></form:errors>
+                <form:errors path="name"></form:errors>
             </div>
         </spring:bind>
 
@@ -33,12 +33,12 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="taskDescription">
+        <spring:bind path="description">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="taskDescription" class="control-label col-xs-4">Task description:</label>
-                <form:textarea cols="25" rows="4" path="taskDescription" class="form-control"
+                <label for="description" class="control-label col-xs-4">Task description:</label>
+                <form:textarea cols="25" rows="4" path="description" class="form-control"
                                placeholder="Describe task"></form:textarea>
-                <form:errors path="taskDescription"></form:errors>
+                <form:errors path="description"></form:errors>
             </div>
         </spring:bind>
 

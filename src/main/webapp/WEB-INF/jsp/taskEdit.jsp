@@ -14,7 +14,7 @@
         <input type="hidden" name="course" value="${course}">
         <form:hidden path="course" value="${course.id}"></form:hidden>
 
-        <h2 class="form-signin-heading">Edit ${task.taskName}:</h2>
+        <h2 class="form-signin-heading">Edit ${task.name}:</h2>
 
         <spring:bind path="dueDate">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -25,12 +25,12 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="taskDescription">
+        <spring:bind path="description">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="taskDescription" class="control-label col-xs-4">Task description:</label>
-                <form:textarea cols="25" rows="4" path="taskDescription" class="form-control"
+                <label for="description" class="control-label col-xs-4">Task description:</label>
+                <form:textarea cols="25" rows="4" path="description" class="form-control"
                                placeholder="Describe task"></form:textarea>
-                <form:errors path="taskDescription"></form:errors>
+                <form:errors path="description"></form:errors>
             </div>
         </spring:bind>
         <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">Submit</button>

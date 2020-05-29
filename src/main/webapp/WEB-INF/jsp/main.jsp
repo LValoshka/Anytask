@@ -15,7 +15,7 @@
                     <c:forEach items="${courseList}" var="studentItem">
                         <div class="col-sm-5" style="margin-bottom: 20px">
                             <div class="card border-light">
-                                <h5 class="card-header">${studentItem.courseName}</h5>
+                                <h5 class="card-header">${studentItem.name}</h5>
                                 <div class="card-body">
                                     <p class="card-text">
                                         Teacher: ${studentItem.teacher.name} ${studentItem.teacher.surname}</p>

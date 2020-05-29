@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>${course.courseName}</title>
+    <title>${course.name}</title>
     <jsp:include page="common.jsp"></jsp:include>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
@@ -27,7 +27,7 @@
     <div class="row mt-3">
         <div class="col-lg-3 col-md-12">
             <div class="card">
-                <h5 class="card-header">${course.courseName}</h5>
+                <h5 class="card-header">${course.name}</h5>
                 <div class="card-body">
                     <p class="card-text"><b>Teacher</b>: ${course.teacher.name} ${course.teacher.surname}</p>
                 </div>
@@ -73,7 +73,7 @@
                                                 class="accordion-toggle">
                                                 <td>
                                                     <a href="/${studentItem.course.id}/task/${studentItem.id}">
-                                                            ${studentItem.taskName}
+                                                            ${studentItem.name}
                                                     </a>
                                                 </td>
                                                 <td>${studentItem.dueDate}</td>
@@ -95,7 +95,7 @@
                                                 <td colspan="5" class="hiddenRow">
                                                     <div id="id${studentItem.id}" class="accordion-body collapse">
                                                         <div class="card card-body">
-                                                            <p>${studentItem.taskDescription}</p>
+                                                            <p>${studentItem.description}</p>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -117,7 +117,7 @@
                          aria-labelledby="list-desc-list">
                         <p class="card-header"><b>Description</b></p>
                         <div class="card-body">
-                            <p>${course.courseDescription}</p>
+                            <p>${course.description}</p>
                         </div>
                     </div>
 
@@ -141,7 +141,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>${inProgressTaskItem.student.name} ${inProgressTaskItem.student.surname}</td>
-                                                <td>${inProgressTaskItem.task.taskName}</td>
+                                                <td>${inProgressTaskItem.task.name}</td>
                                                 <td>${inProgressTaskItem.startDate}</td>
                                             </tr>
                                             </tbody>
@@ -178,7 +178,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>${readyForReviewTaskItem.student.name} ${readyForReviewTaskItem.student.surname}</td>
-                                                <td>${readyForReviewTaskItem.task.taskName}</td>
+                                                <td>${readyForReviewTaskItem.task.name}</td>
                                                 <td>${readyForReviewTaskItem.startDate}</td>
                                             </tr>
                                             </tbody>

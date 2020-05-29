@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>${task.taskName}</title>
+    <title>${task.name}</title>
     <jsp:include page="common.jsp"></jsp:include>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
@@ -30,7 +30,7 @@
             <div class="card">
                 <h5 class="card-header">
                     <a href="/course/${task.course.id}">
-                        ${task.course.courseName}
+                        ${task.course.name}
                     </a>
                 </h5>
                 <div class="card-body">
@@ -55,13 +55,13 @@
                          aria-labelledby="list-desc-list">
                         <p class="card-header"><b>Task description</b></p>
                         <div class="card-body">
-                            <p>${task.taskDescription}</p>
+                            <p>${task.description}</p>
                         </div>
                     </div>
 
                     <div class="tab-pane fade show active" id="tasks" role="tabpanel" aria-labelledby="list-tasks-list">
                         <p class="card-header">
-                            <b>${task.taskName}</b>
+                            <b>${task.name}</b>
                         </p>
                         <div class="card-body">
                             <c:choose>
