@@ -1,6 +1,8 @@
 package com.bsu.famcs.anytask.controller;
 
+import com.bsu.famcs.anytask.dto.CourseDTO;
 import com.bsu.famcs.anytask.entity.*;
+import com.bsu.famcs.anytask.mapper.CourseMapper;
 import com.bsu.famcs.anytask.service.interfaces.CourseService;
 import com.bsu.famcs.anytask.service.interfaces.StudentTaskStatusService;
 import com.bsu.famcs.anytask.service.interfaces.UserService;
@@ -25,39 +27,47 @@ public class CourseController {
     private final UserService userService;
     private final CourseValidator courseValidator;
     private final StudentTaskStatusService studentTaskStatusService;
+    private final CourseMapper courseMapper;
 
     @Autowired
     public CourseController(CourseService courseService, UserService userService,
-                            CourseValidator courseValidator, StudentTaskStatusService studentTaskStatusService) {
+                            CourseValidator courseValidator,
+                            StudentTaskStatusService studentTaskStatusService,
+                            CourseMapper courseMapper) {
         this.courseService = courseService;
         this.userService = userService;
         this.courseValidator = courseValidator;
         this.studentTaskStatusService = studentTaskStatusService;
+        this.courseMapper = courseMapper;
     }
 
     @GetMapping("/courseCreate")
     public String courseAdd(Model model) {
-        model.addAttribute("course", new Course());
+        model.addAttribute("course", new CourseDTO());
         return "courseCreate";
     }
 
     @PostMapping("/courseCreate")
-    public String courseAdd(@ModelAttribute("course") Course course, BindingResult bindingResult) {
-        courseValidator.validate(course, bindingResult);
+    public String courseAdd(@ModelAttribute("course") CourseDTO courseDTO, BindingResult bindingResult) {
+    	courseValidator.validate(courseDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "courseCreate";
         }
 
         User user = getCurrentUser();
 
+        Course course = new Course();
         course.setTeacher(user);
         courseService.create(course);
+
         return "redirect:/start";
     }
 
+    //not good use @PathVariable
     @GetMapping("{course}")
-    public String courseShow(@PathVariable Course course, Model model) {
-        User user = getCurrentUser();
+    public String courseShow(@PathVariable CourseDTO courseDTO, Model model) {
+	    Course course = courseMapper.createEntityFromDTO(courseDTO);
+	    User user = getCurrentUser();
 
         Set<StudentTaskStatus> taskStatuses = new HashSet<>();
         for (Task task : course.getTaskSet()) {
@@ -102,7 +112,8 @@ public class CourseController {
     }
 
     @GetMapping("/{course}/join")
-    public String courseJoin(@PathVariable Course course) {
+    public String courseJoin(@PathVariable CourseDTO courseDTO) {
+	    Course course = courseMapper.createEntityFromDTO(courseDTO);
         User user = getCurrentUser();
 
         Set<User> students = course.getStudentSet();

@@ -1,6 +1,6 @@
 package com.bsu.famcs.anytask.validator;
 
-import com.bsu.famcs.anytask.entity.Course;
+import com.bsu.famcs.anytask.dto.CourseDTO;
 import com.bsu.famcs.anytask.entity.User;
 import com.bsu.famcs.anytask.service.interfaces.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CourseValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        Course course = (Course) o;
+        CourseDTO course = (CourseDTO) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
         if (course.getName().length() < 3 || course.getName().length() > 100) {
